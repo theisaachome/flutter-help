@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+final numberMeasure = List.generate(100, (index) => index + 1);
 final catList = [
   "Biographies & Memory",
   "Education & Referennce",
@@ -39,7 +40,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String selectedCategory;
-
+  final pickNumber = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -81,7 +82,30 @@ class _MyHomePageState extends State<MyHomePage> {
                 style: TextStyle(fontSize: 20, color: Colors.blueGrey),
               ),
             )),
+            Divider(
+              color: Colors.black,
+            ),
+            DropdownButton(
+                hint: Text("Pick Number"),
+                onChanged: (value) {},
+                items: numberMeasure.map<DropdownMenuItem<int>>((e) {
+                  return DropdownMenuItem<int>(
+                    value: pickNumber,
+                    child: Text(
+                      isTens(e) ? '$e ft' : '$e ',
+                      style: TextStyle(
+                        fontSize: isTens(e) ? 24 : 18,
+                        fontWeight:
+                            isTens(e) ? FontWeight.bold : FontWeight.normal,
+                      ),
+                    ),
+                  );
+                }).toList())
           ],
         ));
+  }
+
+  bool isTens(int number) {
+    return number % 10 == 0.0 ? true : false;
   }
 }
